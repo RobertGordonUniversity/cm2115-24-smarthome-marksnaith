@@ -1,6 +1,6 @@
 package uk.ac.rgu.cm2115.devices;
 
-public class Light extends Device implements ISwitch, IDim, IColour{
+public abstract class Light extends Device implements ISwitch, IDim, IColour{
 
     private boolean on;
     private int level;

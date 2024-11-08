@@ -1,6 +1,6 @@
 package uk.ac.rgu.cm2115.devices;
 
-public class Plug extends Device implements ISwitch{
+public abstract class Plug extends Device implements ISwitch{
 
     private boolean on;
 

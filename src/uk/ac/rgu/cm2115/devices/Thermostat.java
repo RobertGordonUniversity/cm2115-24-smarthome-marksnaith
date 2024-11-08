@@ -1,6 +1,6 @@
 package uk.ac.rgu.cm2115.devices;
 
-public class Thermostat extends Device implements IAdjustable{
+public abstract class Thermostat extends Device implements IAdjustable{
 
     private int temperature;
 

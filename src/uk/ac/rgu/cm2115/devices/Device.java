@@ -17,4 +17,7 @@ public abstract class Device {
 
     public abstract void accept(DeviceVisitor visitor);
 
+    /* Additional abstract method to specify manufacturer */
+    public abstract String getManufacturer();
+
 }

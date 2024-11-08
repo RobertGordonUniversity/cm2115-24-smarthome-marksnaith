@@ -1,24 +1,33 @@
 package uk.ac.rgu.cm2115;
 
-import uk.ac.rgu.cm2115.devices.Light;
-import uk.ac.rgu.cm2115.devices.Plug;
-import uk.ac.rgu.cm2115.devices.Thermostat;
+import uk.ac.rgu.cm2115.devices.Device;
+import uk.ac.rgu.cm2115.devices.Amazon.AmazonDeviceFactory;
+import uk.ac.rgu.cm2115.logging.SmartHomeLogger;
+import uk.ac.rgu.cm2115.ui.SmartHomeUI;
 
 public class App {
     public static void main(String[] args){
-        Hub hub = Hub.getInstance();
+        Hub hub = Hub.getInstance(new AmazonDeviceFactory());
 
-        Light light = new Light("Living room");
-        Thermostat therm = new Thermostat("Whole house");
-        Plug plug = new Plug("Laptop");
+        hub.addDevice("light", "Living room");
+        hub.addDevice("thermostat", "Whole house");
+        hub.addDevice("plug","laptop");
 
-        hub.addDevice(light);
-        hub.addDevice(therm);
-        hub.addDevice(plug);
+        Device[] devices = hub.getDevices();
 
-        hub.executeCommand("Switch on Living room light");
-        hub.executeCommand("Turn down whole house thermostat");
-        hub.executeCommand("Dim down Living room light");
-        hub.executeCommand("Switch off laptop plug");
+        for(int i=0;i<devices.length;i++){
+            if(devices[i]==null){
+                break;
+            }
+            System.out.println(devices[i].getManufacturer() + ": " + devices[i]);
+        }
+
+        SmartHomeUI ui = new SmartHomeUI();
+        ui.addObserver(hub);
+
+        SmartHomeLogger logger = new SmartHomeLogger();
+        ui.addObserver(logger);
+
+        ui.getInput();        
     }
 }
